@@ -1,0 +1,23 @@
+FROM ubuntu:20.04
+
+# LABEL about the custom image
+LABEL maintainer="narsa.bg@gmail.com"
+LABEL version="0"
+LABEL description="This is custom Docker Image for R&D coding test"
+
+#sets the working directory in the container which is used 
+WORKDIR /RD_code_test/app
+
+#Installation tasks
+RUN apt-get update -y 
+RUN apt-get install -y python3-pip python3-dev
+
+COPY requirements.txt .
+
+# install dependencies
+RUN pip install -r requirements.txt
+
+CMD [ "sh", "-c", "python3", "-m","./dicomhandling.py", "-input_folder"]
+
+
+
